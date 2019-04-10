@@ -3,7 +3,7 @@
 set -e
 
 BASE_URL=https://download.unity3d.com/download_unity
-HASH=a9f86dcd79df
+HASH=fc0fe30d6d91
 VERSION=2018.3.8f1
 
 download() {
