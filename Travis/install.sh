@@ -4,7 +4,7 @@ set -e
 
 BASE_URL=https://download.unity3d.com/download_unity
 HASH=a9f86dcd79df
-VERSION=2017.3.0f3
+VERSION=2018.3.8f1
 
 download() {
  file=$1
