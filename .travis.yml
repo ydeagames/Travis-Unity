@@ -8,7 +8,7 @@ branches:
 
 addons:
   sonarcloud:
-    organization: "rafaelnsantos-github"
+    organization: "ydeagames-github"
 
 os: osx
 
