@@ -53,3 +53,6 @@ deploy:
   keep-history: true
   on:
     branch: stable
+
+notifications:
+  email: false
