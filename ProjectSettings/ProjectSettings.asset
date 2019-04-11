@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: YdeaGames
-  productName: "\u2606\u661F\u3074\u3093"
+  productName: StarPin
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0.5, y: 0.5}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
