@@ -14,6 +14,9 @@ echo "Attempting to build $project for Windows"
  -nographics \
  -silent-crashes \
  -logFile \
+ -serial ${UNITY_SERIAL_NUMBER} \
+ -username ${UNITY_USER_NAME} \
+ -password ${UNITY_USER_PASSWORD} \
  -projectPath $(pwd)/ \
  -executeMethod BuildScript.Windows \
  -quit
@@ -24,6 +27,9 @@ echo "Attempting to build $project for OS X"
  -nographics \
  -silent-crashes \
  -logFile \
+ -serial ${UNITY_SERIAL_NUMBER} \
+ -username ${UNITY_USER_NAME} \
+ -password ${UNITY_USER_PASSWORD} \
  -projectPath $(pwd)/ \
  -executeMethod BuildScript.OSX \
  -quit
@@ -34,6 +40,9 @@ echo "Attempting to build $project for Linux"
  -nographics \
  -silent-crashes \
  -logFile \
+ -serial ${UNITY_SERIAL_NUMBER} \
+ -username ${UNITY_USER_NAME} \
+ -password ${UNITY_USER_PASSWORD} \
  -projectPath $(pwd)/ \
  -executeMethod BuildScript.Linux \
  -quit
@@ -44,6 +53,9 @@ echo "Attempting to build $project for WebGL"
  -nographics \
  -silent-crashes \
  -logFile \
+ -serial ${UNITY_SERIAL_NUMBER} \
+ -username ${UNITY_USER_NAME} \
+ -password ${UNITY_USER_PASSWORD} \
  -projectPath $(pwd)/ \
  -quit \
  -executeMethod BuildScript.WebGL
@@ -58,6 +70,9 @@ echo "Attempting to build $project for WebGL"
 #   -nographics \
 #   -silent-crashes \
 #   -logFile \
+#   -serial ${UNITY_SERIAL_NUMBER} \
+#   -username ${UNITY_USER_NAME} \
+#   -password ${UNITY_USER_PASSWORD} \
 #   -projectPath $(pwd)/ \
 #   -quit \
 #   -executeMethod BuildScript.Android
@@ -68,6 +83,9 @@ echo "Attempting to build $project for WebGL"
 #   -nographics \
 #   -silent-crashes \
 #   -logFile \
+#   -serial ${UNITY_SERIAL_NUMBER} \
+#   -username ${UNITY_USER_NAME} \
+#   -password ${UNITY_USER_PASSWORD} \
 #   -projectPath $(pwd)/ \
 #   -quit \
 #   -executeMethod BuildScript.iOS
