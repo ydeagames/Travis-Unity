@@ -32,7 +32,6 @@ env:
 
 install:
   - sh ./Travis/install.sh
-  - sh ./Travis/install_android.sh
 
 script:
   - sonar-scanner
@@ -63,4 +62,4 @@ deploy:
       branch: stable
 
 notifications:
-  email: false
+  email: true
