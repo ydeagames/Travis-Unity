@@ -1,7 +1,5 @@
 #! /bin/sh
 
-brew update
-brew tap caskroom/cask
 brew install caskroom/cask/android-sdk caskroom/cask/android-ndk
 export ANDROID_SDK_ROOT=/usr/local/share/android-sdk
 export ANDROID_NDK_ROOT=/usr/local/share/android-ndk
