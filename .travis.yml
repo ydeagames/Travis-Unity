@@ -25,6 +25,11 @@ cache:
     - $HOME/android-sdk-dl
     - $HOME/android-sdk
 
+env:
+  global:
+    - ANDROID_HOME=$HOME/android/sdk
+    - ANDROID_NDK_HOME=$HOME/android/sdk/ndk-bundle
+
 install:
   - sh ./Travis/install.sh
   - sh ./Travis/install_android.sh
