@@ -31,6 +31,8 @@ env:
     - ANDROID_NDK_HOME=$HOME/android/sdk/ndk-bundle
 
 install:
+  - echo "Attempting to Install NDK Bundle"
+  - echo y | sdkmanager "ndk-bundle"
   - sh ./Travis/install.sh
 
 script:
