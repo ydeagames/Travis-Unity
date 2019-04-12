@@ -1,4 +1,11 @@
-language: objective-c
+language: android
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - extra-google-m2repository
+    - extra-android-m2repository
 
 branches:
   only:
@@ -28,7 +35,10 @@ cache:
 env:
   global:
     - ANDROID_HOME=$HOME/android/sdk
-    - ANDROID_NDK_HOME=$HOME/android/sdk/ndk-bundle
+    - ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
+
+before_install:
+  - sudo apt-get install ant
 
 install:
   - echo "Attempting to Install NDK Bundle"
