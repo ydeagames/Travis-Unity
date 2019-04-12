@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 public class BuildScript {
@@ -15,6 +16,13 @@ public class BuildScript {
         }
 
         return scenes;
+    }
+
+    static void SetPrefsByEnv(string key, string environmentName)
+    {
+        var value = Environment.GetEnvironmentVariable(environmentName);
+        if (!string.IsNullOrEmpty(value))
+            EditorPrefs.SetString(key, value);
     }
 
     public static void WebGL () {
@@ -34,6 +42,10 @@ public class BuildScript {
     }
 
     public static void Android () {
+        SetPrefsByEnv("AndroidSdkRoot", "ANDROID_SDK_ROOT");
+        SetPrefsByEnv("AndroidNdkRoot", "ANDROID_NDK_ROOT");
+        SetPrefsByEnv("JdkPath", "JAVA_HOME");
+
         Build(BuildTargetGroup.Android, BuildTarget.Android, "Build/android/" + GetProjectName() + ".apk");
     }
 

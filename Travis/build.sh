@@ -8,46 +8,59 @@ project="Travis-Unity"
 # versionName="a.${DATE}"
 
 
-echo "Attempting to build $project for Windows"
-/Applications/Unity/Unity.app/Contents/MacOS/Unity \
- -batchmode \
- -nographics \
- -silent-crashes \
- -logFile \
- -serial ${UNITY_SERIAL_NUMBER} \
- -username ${UNITY_USER_NAME} \
- -password ${UNITY_USER_PASSWORD} \
- -projectPath $(pwd)/ \
- -executeMethod BuildScript.Windows \
- -quit
+# echo "Attempting to build $project for Windows"
+# /Applications/Unity/Unity.app/Contents/MacOS/Unity \
+#  -batchmode \
+#  -nographics \
+#  -silent-crashes \
+#  -logFile \
+#  -serial ${UNITY_SERIAL_NUMBER} \
+#  -username ${UNITY_USER_NAME} \
+#  -password ${UNITY_USER_PASSWORD} \
+#  -projectPath $(pwd)/ \
+#  -executeMethod BuildScript.Windows \
+#  -quit
+# 
+# echo "Attempting to build $project for OS X"
+# /Applications/Unity/Unity.app/Contents/MacOS/Unity \
+#  -batchmode \
+#  -nographics \
+#  -silent-crashes \
+#  -logFile \
+#  -serial ${UNITY_SERIAL_NUMBER} \
+#  -username ${UNITY_USER_NAME} \
+#  -password ${UNITY_USER_PASSWORD} \
+#  -projectPath $(pwd)/ \
+#  -executeMethod BuildScript.OSX \
+#  -quit
+# 
+# echo "Attempting to build $project for Linux"
+# /Applications/Unity/Unity.app/Contents/MacOS/Unity \
+#  -batchmode \
+#  -nographics \
+#  -silent-crashes \
+#  -logFile \
+#  -serial ${UNITY_SERIAL_NUMBER} \
+#  -username ${UNITY_USER_NAME} \
+#  -password ${UNITY_USER_PASSWORD} \
+#  -projectPath $(pwd)/ \
+#  -executeMethod BuildScript.Linux \
+#  -quit
+# 
+# echo "Attempting to build $project for WebGL"
+# /Applications/Unity/Unity.app/Contents/MacOS/Unity \
+#  -batchmode \
+#  -nographics \
+#  -silent-crashes \
+#  -logFile \
+#  -serial ${UNITY_SERIAL_NUMBER} \
+#  -username ${UNITY_USER_NAME} \
+#  -password ${UNITY_USER_PASSWORD} \
+#  -projectPath $(pwd)/ \
+#  -quit \
+#  -executeMethod BuildScript.WebGL
 
-echo "Attempting to build $project for OS X"
-/Applications/Unity/Unity.app/Contents/MacOS/Unity \
- -batchmode \
- -nographics \
- -silent-crashes \
- -logFile \
- -serial ${UNITY_SERIAL_NUMBER} \
- -username ${UNITY_USER_NAME} \
- -password ${UNITY_USER_PASSWORD} \
- -projectPath $(pwd)/ \
- -executeMethod BuildScript.OSX \
- -quit
-
-echo "Attempting to build $project for Linux"
-/Applications/Unity/Unity.app/Contents/MacOS/Unity \
- -batchmode \
- -nographics \
- -silent-crashes \
- -logFile \
- -serial ${UNITY_SERIAL_NUMBER} \
- -username ${UNITY_USER_NAME} \
- -password ${UNITY_USER_PASSWORD} \
- -projectPath $(pwd)/ \
- -executeMethod BuildScript.Linux \
- -quit
-
-echo "Attempting to build $project for WebGL"
+echo "Attempting to build $project for Android"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
  -batchmode \
  -nographics \
@@ -58,24 +71,7 @@ echo "Attempting to build $project for WebGL"
  -password ${UNITY_USER_PASSWORD} \
  -projectPath $(pwd)/ \
  -quit \
- -executeMethod BuildScript.WebGL
-
-export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
-export ANDROID_NDK_HOME="/usr/local/share/android-ndk"
-export JAVA_HOME=$(/usr/libexec/java_home)
-
-echo "Attempting to build $project for Android"
-/Applications/Unity/Unity.app/Contents/MacOS/Unity \
-  -batchmode \
-  -nographics \
-  -silent-crashes \
-  -logFile \
-  -serial ${UNITY_SERIAL_NUMBER} \
-  -username ${UNITY_USER_NAME} \
-  -password ${UNITY_USER_PASSWORD} \
-  -projectPath $(pwd)/ \
-  -quit \
-  -executeMethod BuildScript.Android
+ -executeMethod BuildScript.Android
 
 # echo "Attempting to build $project for iOS"
 # /Applications/Unity/Unity.app/Contents/MacOS/Unity \
