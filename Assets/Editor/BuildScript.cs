@@ -18,7 +18,7 @@ public class BuildScript {
     }
 
     public static void WebGL () {
-        Build(BuildTargetGroup.WebGL, BuildTarget.WebGL, "Build/webgl/");
+        Build(BuildTargetGroup.WebGL, BuildTarget.WebGL, "Build/webgl/" + GetProjectName());
     }
 
     public static void OSX () {
@@ -34,7 +34,7 @@ public class BuildScript {
     }
 
     public static void Android () {
-        Build(BuildTargetGroup.Android, BuildTarget.Android, "Build/android");
+        Build(BuildTargetGroup.Android, BuildTarget.Android, "Build/android/" + GetProjectName() + ".apk");
     }
 
     public static void iOS () {

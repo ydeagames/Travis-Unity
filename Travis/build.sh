@@ -60,22 +60,22 @@ echo "Attempting to build $project for WebGL"
  -quit \
  -executeMethod BuildScript.WebGL
 
-# export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
-# export ANDROID_NDK_HOME="/usr/local/share/android-ndk"
-# export JAVA_HOME=$(/usr/libexec/java_home)
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+export ANDROID_NDK_HOME="/usr/local/share/android-ndk"
+export JAVA_HOME=$(/usr/libexec/java_home)
 
-# echo "Attempting to build $project for Android"
-# /Applications/Unity/Unity.app/Contents/MacOS/Unity \
-#   -batchmode \
-#   -nographics \
-#   -silent-crashes \
-#   -logFile \
-#   -serial ${UNITY_SERIAL_NUMBER} \
-#   -username ${UNITY_USER_NAME} \
-#   -password ${UNITY_USER_PASSWORD} \
-#   -projectPath $(pwd)/ \
-#   -quit \
-#   -executeMethod BuildScript.Android
+echo "Attempting to build $project for Android"
+/Applications/Unity/Unity.app/Contents/MacOS/Unity \
+  -batchmode \
+  -nographics \
+  -silent-crashes \
+  -logFile \
+  -serial ${UNITY_SERIAL_NUMBER} \
+  -username ${UNITY_USER_NAME} \
+  -password ${UNITY_USER_PASSWORD} \
+  -projectPath $(pwd)/ \
+  -quit \
+  -executeMethod BuildScript.Android
 
 # echo "Attempting to build $project for iOS"
 # /Applications/Unity/Unity.app/Contents/MacOS/Unity \
@@ -95,4 +95,5 @@ cd $(pwd)/Build
 tar -czvf linux.tar.gz linux/
 hdiutil create osx.dmg -srcfolder osx/ -ov
 zip -r windows.zip windows/
+zip -r android.zip android/
 # zip -r ios.zip ios/
