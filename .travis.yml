@@ -1,4 +1,11 @@
-language: objective-c
+language: android
+
+android:
+  components:
+    - build-tools-26.0.2
+    - android-26
+    - add-on
+    - extra
 
 branches:
   only:
