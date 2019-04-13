@@ -41,6 +41,7 @@ install:
   - sh ./Travis/install.sh
 #  - sh ./Travis/install_android.sh
   - brew cask install fastlane
+  - export PATH="$HOME/.fastlane/bin:$PATH"
 
 script:
   - sonar-scanner
