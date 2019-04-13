@@ -37,7 +37,7 @@ cache:
 install:
   - brew install tree
   - sh ./Travis/install.sh
-  - sh ./Travis/install_android.sh
+  - bash ./Travis/install_android.sh
 
 script:
   - sonar-scanner
