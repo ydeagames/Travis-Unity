@@ -39,6 +39,7 @@ install:
   - brew cask uninstall java # uninstall java9
   - brew tap homebrew/cask-versions
   - brew cask install java8 # install java8
+  - brew install tree
   - echo "Current Directory is $(pwd)"
   - mkdir -p ~/.android/
   - touch ~/.android/repositories.cfg # without this file, error will occur on next step
@@ -52,12 +53,15 @@ install:
   - echo "Current Directory is $(pwd)"
   - sh ./Travis/install.sh
   - echo "Current Directory is $(pwd)"
+  - tree
 
 script:
   - sonar-scanner
   - echo "Current Directory is $(pwd)"
+  - tree
   - sh ./Travis/build.sh
   - echo "Current Directory is $(pwd)"
+  - tree
 
 after_success:
   - sh ./Travis/tag.sh
