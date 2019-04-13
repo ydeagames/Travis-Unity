@@ -45,15 +45,15 @@ install:
 
 script:
   - sonar-scanner
-  - tree
+  - tree -L 3
   - sh ./Travis/build.sh
-  - tree
+  - tree -L 3
   # iOS
   - cd ./Build/ios
   - fastlane init
   - cat ./Fastfile
   - cd ../../
-  - tree
+  - tree -L 3
 
 after_success:
   - sh ./Travis/tag.sh
