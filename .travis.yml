@@ -21,7 +21,7 @@ env:
     - ANDROID_NDK_HOME=/usr/local/share/android-ndk
 
 cache:
-  directories:
+  - directories:
     # Homebrew    
     - $HOME/Library/Caches/Homebrew
     # Android
@@ -30,6 +30,7 @@ cache:
     # Unity
     - ./Unity
     - $HOME/Library/Caches/com.unity3d.UnityEditor/GiCache
+  - timeout: 1000
 
 install:
   - brew install tree
