@@ -15,9 +15,6 @@ rvm:
 addons:
   - sonarcloud:
     organization: "ydeagames-github"
-  - apt:
-    packages:
-      - oracle-java8-set-default
 
 env:
   global:
@@ -36,12 +33,30 @@ cache:
     - $HOME/Library/Caches/com.unity3d.UnityEditor/GiCache
   - timeout: 1000
 
+before_install:
+  # travis encrypt-file
+  - openssl aes-256-cbc -K $encrypted_071e2bb50fdb_key -iv $encrypted_071e2bb50fdb_iv -in ./Travis/Secrets/secrets.tar.enc -out ./Travis/Secrets/secrets.tar -d
+  - tar xvf ./Travis/Secrets/secrets.tar -C ./Travis/Secrets
+  # xcpretty and fomrmatter
+  - gem install xcpretty-travis-formatter --no-document
+
 install:
   - brew install tree
   - sh ./Travis/install.sh
 #  - sh ./Travis/install_android.sh
-  - brew cask install fastlane
-  - export PATH="$HOME/.fastlane/bin:$PATH"
+
+before_script:
+  # Create default keychain on VM
+  # http://docs.travis-ci.com/user/common-build-problems/#Mac%3A-Code-Signing-Errors
+  - security create-keychain -p travis ios-build.keychain
+  - security default-keychain -s ios-build.keychain
+  - security unlock-keychain -p travis ios-build.keychain
+  - security set-keychain-settings -t 3600 -l ~/Library/Keychains/ios-build.keychain
+  # Add certs to keychain
+  - security import ./Travis/Secrets/travis.p12 -k ~/Library/Keychains/ios-build.keychain -P ${KEY_PASSWORD} -T /usr/bin/codesign
+  # save profile
+  - mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+  - cp "./Travis/Secrets/profiles/travis.mobileprovision" ~/Library/MobileDevice/Provisioning\ Profiles/
 
 script:
   - sonar-scanner
@@ -49,14 +64,19 @@ script:
   - sh ./Travis/build.sh
   - tree -L 3
   # iOS
-  - cp -r ./Travis/fastlane ./Build/ios/fastlane
   - cd ./Build/ios
-  - fastlane deploygate
+  - xcodebuild -project ${APP_NAME}.xcodeproj -target ${APP_NAME} -sdk iphoneos -configuration Release CODE_SIGN_IDENTITY="${DEVELOPER_NAME}" archive -archivePath ./build/${APP_NAME}.xcarchive | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
+  - xcodebuild -exportArchive -exportFormat IPA -archivePath ./build/${APP_NAME}.xcarchive -exportPath ./build.ipa -exportProvisioningProfile "${PROFILE_NAME}" | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
   - cd ../../
-  - tree -L 3
 
 after_success:
   - sh ./Travis/tag.sh
+  # Upload .ipa file to deploygate
+  - curl -F "file=@./Build/ios/build.ipa" -F "token=${DEPLOYGATE_API_TOKEN}" https://deploygate.com/api/users/${DEPLOYGATE_USER}/apps
+
+after_script:
+  - security delete-keychain ios-build.keychain
+  - rm -f "~/Library/MobileDevice/Provisioning Profiles/${PROFILE_NAME}.mobileprovision"
 
 deploy:
   - provider: releases
@@ -66,8 +86,7 @@ deploy:
       # - ./Build/linux.tar.gz
       # - ./Build/android.apk
       # - ./Build/osx.dmg
-      - ./Build/ios.zip
-      # - ./Build/ios.ipa
+      - ./Build/ios/build.ipa
     name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
     skip_cleanup: true
     on:

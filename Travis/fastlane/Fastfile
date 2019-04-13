@@ -1,9 +1,0 @@
-desc "Upload to DeployGate"
-lane :deploygate do
-  gym
-  deploygate(
-    # api_token: 'API Key', # env DEPLOYGATE_API_TOKEN
-    # user: 'User Name', # env DEPLOYGATE_USER
-    message: "Fastlane build #{lane_context[SharedValues::BUILD_NUMBER]}",
-  )
-end
