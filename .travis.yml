@@ -12,9 +12,9 @@ rvm:
   - 2.2
 
 addons:
-  sonarcloud:
+  - sonarcloud:
     organization: "ydeagames-github"
-  apt:
+  - apt:
     packages:
       - oracle-java8-set-default
 
@@ -25,11 +25,11 @@ env:
 
 cache:
   directories:
-    # Homebrew
+    # Homebrew    
     - $HOME/Library/Caches/Homebrew
-	# Android
-	- $ANDROID_SDK_ROOT
-	- $ANDROID_NDK_HOME
+    # Android
+    - $ANDROID_SDK_ROOT
+    - $ANDROID_NDK_HOME
     # Unity
     - ./Unity
     - $HOME/Library/Caches/com.unity3d.UnityEditor/GiCache
