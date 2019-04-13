@@ -157,6 +157,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.github.capybarateam.starpin
     Standalone: com.github.capybarateam.starpin
+    iOS: com.github.capybarateam.starpin
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16

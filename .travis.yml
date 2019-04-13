@@ -49,9 +49,9 @@ script:
   - sh ./Travis/build.sh
   - tree -L 3
   # iOS
+  - cp -r ./Travis/fastlane ./Build/ios/fastlane
   - cd ./Build/ios
-  - fastlane init
-  - cat ./Fastfile
+  - fastlane deploygate
   - cd ../../
   - tree -L 3
 
@@ -62,10 +62,10 @@ deploy:
   - provider: releases
     api_key: $GIT_TOKEN
     file: 
-      - ./Build/windows.zip
-      - ./Build/linux.tar.gz
-      - ./Build/android.apk
-      - ./Build/osx.dmg
+      # - ./Build/windows.zip
+      # - ./Build/linux.tar.gz
+      # - ./Build/android.apk
+      # - ./Build/osx.dmg
       - ./Build/ios.zip
       # - ./Build/ios.ipa
     name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')

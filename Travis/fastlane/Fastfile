@@ -1,0 +1,9 @@
+desc "Upload to DeployGate"
+lane :deploygate do
+  gym
+  deploygate(
+    # api_token: 'API Key', # もしくは環境変数 DEPLOYGATE_API_TOKEN にて設定可能
+    # user: 'ユーザー名もしくはグループ名', # もしくは環境変数 DEPLOYGATE_USER にて設定可能
+    message: "Fastlane build #{lane_context[SharedValues::BUILD_NUMBER]}",
+  )
+end
