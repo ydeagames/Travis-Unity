@@ -38,7 +38,7 @@ install:
   - brew cask uninstall java # uninstall java9
   - brew tap homebrew/cask-versions
   - brew cask install java8 # install java8
-  - touch ~/.android/repositories.cfg # without this file, error will occur on next step
+  # - touch ~/.android/repositories.cfg # without this file, error will occur on next step
   - brew cask install android-sdk
   - brew cask install android-ndk
   - sdkmanager "platform-tools"
