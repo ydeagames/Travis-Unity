@@ -17,14 +17,14 @@ rvm:
 
 cache:
   directories:
-    # Unity
-    - ./Unity
     # Homebrew
     - $HOME/Library/Caches/Homebrew
+    # Unity
+    - ./Unity
 
 env:
   global:
-    - ANDROID_HOME=/usr/local/share/android-sdk
+    - ANDROID_SDK_ROOT=/usr/local/share/android-sdk
     - ANDROID_NDK_HOME=/usr/local/share/android-ndk
 
 install:
@@ -33,6 +33,8 @@ install:
   - brew tap homebrew/homebrew-cask
   - brew cask install android-sdk
   - brew cask install android-ndk
+  - sdkmanager "platform-tools"
+  - sdkmanager "build-tools;23.0.1"
   - sh ./Travis/install.sh
 
 script:
