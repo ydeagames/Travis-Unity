@@ -6,22 +6,30 @@ branches:
     - beta
     - stable
 
-addons:
-  sonarcloud:
-    organization: "ydeagames-github"
-
 os: osx
 
 rvm:
   - 2.2
 
-jdk:
-  - oraclejdk8
+addons:
+  sonarcloud:
+    organization: "ydeagames-github"
+  apt:
+    packages:
+      - oracle-java8-set-default
+
+env:
+  global:
+    - ANDROID_SDK_ROOT=/usr/local/share/android-sdk
+    - ANDROID_NDK_HOME=/usr/local/share/android-ndk
 
 cache:
   directories:
     # Homebrew
     - $HOME/Library/Caches/Homebrew
+	# Android
+	- $ANDROID_SDK_ROOT
+	- $ANDROID_NDK_HOME
     # Unity
     - ./Unity
     - $HOME/Library/Caches/com.unity3d.UnityEditor/GiCache

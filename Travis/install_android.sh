@@ -2,9 +2,6 @@
 
 echo "Attempting to Install Android SDK and NDK"
 brew tap homebrew/cask
-brew cask uninstall java # uninstall java9
-brew tap homebrew/cask-versions
-brew cask install java8 # install java8
 mkdir -p ~/.android/
 touch ~/.android/repositories.cfg # without this file, error will occur on next step
 brew cask install android-sdk
