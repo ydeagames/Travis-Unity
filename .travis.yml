@@ -34,7 +34,11 @@ env:
 install:
   - echo "Attempting to Install NDK Bundle"
   - brew doctor
-  - brew tap homebrew/homebrew-cask
+  - brew tap homebrew/cask
+  - brew cask uninstall java # uninstall java9
+  - brew tap homebrew/cask-versions
+  - brew cask install java8 # install java8
+  - touch ~/.android/repositories.cfg # without this file, error will occur on next step
   - brew cask install android-sdk
   - brew cask install android-ndk
   - sdkmanager "platform-tools"
