@@ -58,21 +58,21 @@ deploy:
     api_key: $GIT_TOKEN
     file: 
       - ./Build/windows.zip
-      - ./Build/linux.tar.gz
+    #  - ./Build/linux.tar.gz
       - ./Build/android.apk
-      - ./Build/osx.dmg
+    #  - ./Build/osx.dmg
     name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
     skip_cleanup: true
     on:
       all_branches: true
 
-  - provider: pages
-    skip-cleanup: true
-    github-token: $GIT_TOKEN
-    local-dir: ./Build/webgl/
-    keep-history: true
-    on:
-      branch: stable
+#  - provider: pages
+#    skip-cleanup: true
+#    github-token: $GIT_TOKEN
+#    local-dir: ./Build/webgl/
+#    keep-history: true
+#    on:
+#      branch: stable
 
 notifications:
   email: true
