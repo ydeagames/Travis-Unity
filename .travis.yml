@@ -36,7 +36,7 @@ cache:
 before_install:
   - sleep 2
   # travis encrypt-file
-  - openssl aes-256-cbc -K $encrypted_071e2bb50fdb_key -iv $encrypted_071e2bb50fdb_iv -in ./Travis/Secrets/secrets.tar.enc -out ./Travis/Secrets/secrets.tar -d
+  - openssl aes-256-cbc -K $encrypted_97826f4a0cf3_key -iv $encrypted_97826f4a0cf3_iv -in ./Travis/Secrets/secrets.tar.enc -out ./Travis/Secrets/secrets.tar -d
   - tar xvf ./Travis/Secrets/secrets.tar -C ./Travis/Secrets
   # xcpretty and fomrmatter
   - gem install xcpretty-travis-formatter --no-document
