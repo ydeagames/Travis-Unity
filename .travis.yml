@@ -7,6 +7,7 @@ branches:
     - stable
 
 os: osx
+osx_image: xcode8.3
 
 rvm:
   - 2.2
@@ -24,7 +25,7 @@ env:
     - ANDROID_NDK_HOME=/usr/local/share/android-ndk
 
 cache:
-  directories:
+  - directories:
     # Homebrew    
     - $HOME/Library/Caches/Homebrew
     # Android
@@ -33,16 +34,24 @@ cache:
     # Unity
     - ./Unity
     - $HOME/Library/Caches/com.unity3d.UnityEditor/GiCache
+  - timeout: 1000
 
 install:
   - brew install tree
   - sh ./Travis/install.sh
 #  - sh ./Travis/install_android.sh
+  - bundle install
 
 script:
   - sonar-scanner
   - tree
   - sh ./Travis/build.sh
+  - tree
+  # iOS
+  - 
+  - cd ./Build/ios
+  - fastlane gym
+  - cd ../../
   - tree
 
 after_success:
@@ -57,6 +66,7 @@ deploy:
       - ./Build/android.apk
       - ./Build/osx.dmg
       - ./Build/ios.zip
+      - ./Build/ios.ipa
     name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
     skip_cleanup: true
     on:

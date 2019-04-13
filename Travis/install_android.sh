@@ -1,7 +1,6 @@
 #! /bin/sh
 
 echo "Attempting to Install Android SDK and NDK"
-brew tap homebrew/cask
 mkdir -p ~/.android/
 touch ~/.android/repositories.cfg # without this file, error will occur on next step
 brew cask install android-sdk
