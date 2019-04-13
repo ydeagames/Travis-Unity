@@ -40,7 +40,7 @@ install:
   - brew install tree
   - sh ./Travis/install.sh
 #  - sh ./Travis/install_android.sh
-  - bundle install
+  - brew cask install fastlane
 
 script:
   - sonar-scanner
@@ -48,9 +48,9 @@ script:
   - sh ./Travis/build.sh
   - tree
   # iOS
-  - 
   - cd ./Build/ios
-  - fastlane gym
+  - fastlane init
+  - cat ./Fastfile
   - cd ../../
   - tree
 
@@ -66,7 +66,7 @@ deploy:
       - ./Build/android.apk
       - ./Build/osx.dmg
       - ./Build/ios.zip
-      - ./Build/ios.ipa
+      # - ./Build/ios.ipa
     name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
     skip_cleanup: true
     on:
