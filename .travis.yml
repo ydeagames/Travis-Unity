@@ -1,11 +1,4 @@
-language: android
-
-android:
-  components:
-    - tools
-    - platform-tools
-    - extra-google-m2repository
-    - extra-android-m2repository
+language: objective-c
 
 branches:
   only:
@@ -28,21 +21,18 @@ cache:
     - ./Unity
     # Homebrew
     - $HOME/Library/Caches/Homebrew
-    # Android SDK
-    - $HOME/android-sdk-dl
-    - $HOME/android-sdk
 
 env:
   global:
-    - ANDROID_HOME=$HOME/android/sdk
-    - ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
-
-before_install:
-  - sudo apt-get install ant
+    - ANDROID_HOME=/usr/local/share/android-sdk
+    - ANDROID_NDK_HOME=/usr/local/share/android-ndk
 
 install:
   - echo "Attempting to Install NDK Bundle"
-  - echo y | sdkmanager "ndk-bundle"
+  - brew doctor
+  - brew tap homebrew/homebrew-cask
+  - brew cask install android-sdk
+  - brew cask install android-ndk
   - sh ./Travis/install.sh
 
 script:
