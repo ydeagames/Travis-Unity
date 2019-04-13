@@ -15,6 +15,9 @@ os: osx
 rvm:
   - 2.2
 
+jdk:
+  - oraclejdk8
+
 cache:
   directories:
     # Homebrew
@@ -31,7 +34,6 @@ env:
 install:
   - echo "Attempting to Install NDK Bundle"
   - brew doctor
-  - set JAVA_OPTS=-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee
   - brew tap homebrew/homebrew-cask
   - brew cask install android-sdk
   - brew cask install android-ndk
