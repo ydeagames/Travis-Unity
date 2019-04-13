@@ -12,7 +12,7 @@ rvm:
   - 2.2
 
 addons:
-  - sonarcloud:
+  sonarcloud:
     organization: "ydeagames-github"
 
 env:
