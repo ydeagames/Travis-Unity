@@ -46,7 +46,7 @@ public class BuildScript {
         SetPrefsByEnv("AndroidNdkRoot", "ANDROID_NDK_HOME");
         SetPrefsByEnv("JdkPath", "JAVA_HOME");
 
-        Build(BuildTargetGroup.Android, BuildTarget.Android, "Build/android/" + GetProjectName() + ".apk");
+        Build(BuildTargetGroup.Android, BuildTarget.Android, "Build/android.apk");
     }
 
     public static void iOS () {

@@ -21,44 +21,44 @@ echo "Attempting to build $project for Windows"
  -executeMethod BuildScript.Windows \
  -quit
 
-# echo "Attempting to build $project for OS X"
-# /Applications/Unity/Unity.app/Contents/MacOS/Unity \
-#  -batchmode \
-#  -nographics \
-#  -silent-crashes \
-#  -logFile \
-#  -serial ${UNITY_SERIAL_NUMBER} \
-#  -username ${UNITY_USER_NAME} \
-#  -password ${UNITY_USER_PASSWORD} \
-#  -projectPath $(pwd)/ \
-#  -executeMethod BuildScript.OSX \
-#  -quit
-# 
-# echo "Attempting to build $project for Linux"
-# /Applications/Unity/Unity.app/Contents/MacOS/Unity \
-#  -batchmode \
-#  -nographics \
-#  -silent-crashes \
-#  -logFile \
-#  -serial ${UNITY_SERIAL_NUMBER} \
-#  -username ${UNITY_USER_NAME} \
-#  -password ${UNITY_USER_PASSWORD} \
-#  -projectPath $(pwd)/ \
-#  -executeMethod BuildScript.Linux \
-#  -quit
-# 
-# echo "Attempting to build $project for WebGL"
-# /Applications/Unity/Unity.app/Contents/MacOS/Unity \
-#  -batchmode \
-#  -nographics \
-#  -silent-crashes \
-#  -logFile \
-#  -serial ${UNITY_SERIAL_NUMBER} \
-#  -username ${UNITY_USER_NAME} \
-#  -password ${UNITY_USER_PASSWORD} \
-#  -projectPath $(pwd)/ \
-#  -quit \
-#  -executeMethod BuildScript.WebGL
+echo "Attempting to build $project for OS X"
+/Applications/Unity/Unity.app/Contents/MacOS/Unity \
+ -batchmode \
+ -nographics \
+ -silent-crashes \
+ -logFile \
+ -serial ${UNITY_SERIAL_NUMBER} \
+ -username ${UNITY_USER_NAME} \
+ -password ${UNITY_USER_PASSWORD} \
+ -projectPath $(pwd)/ \
+ -executeMethod BuildScript.OSX \
+ -quit
+
+echo "Attempting to build $project for Linux"
+/Applications/Unity/Unity.app/Contents/MacOS/Unity \
+ -batchmode \
+ -nographics \
+ -silent-crashes \
+ -logFile \
+ -serial ${UNITY_SERIAL_NUMBER} \
+ -username ${UNITY_USER_NAME} \
+ -password ${UNITY_USER_PASSWORD} \
+ -projectPath $(pwd)/ \
+ -executeMethod BuildScript.Linux \
+ -quit
+
+echo "Attempting to build $project for WebGL"
+/Applications/Unity/Unity.app/Contents/MacOS/Unity \
+ -batchmode \
+ -nographics \
+ -silent-crashes \
+ -logFile \
+ -serial ${UNITY_SERIAL_NUMBER} \
+ -username ${UNITY_USER_NAME} \
+ -password ${UNITY_USER_PASSWORD} \
+ -projectPath $(pwd)/ \
+ -quit \
+ -executeMethod BuildScript.WebGL
 
 echo "Attempting to build $project for Android"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
@@ -88,8 +88,8 @@ echo "Attempting to build $project for Android"
 
 echo 'Attempting to zip builds'
 cd $(pwd)/Build
-# tar -czvf linux.tar.gz linux/
-# hdiutil create osx.dmg -srcfolder osx/ -ov
+tar -czvf linux.tar.gz linux/
+hdiutil create osx.dmg -srcfolder osx/ -ov
 zip -r windows.zip windows/
-zip -r android.zip android/
+# zip -r android.zip android/
 # zip -r ios.zip ios/
