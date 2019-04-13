@@ -43,8 +43,7 @@ install:
   - brew cask install android-sdk
   - brew cask install android-ndk
   - yes | sdkmanager --licenses
-  - sdkmanager "platform-tools"
-  - sdkmanager "build-tools;23.0.1"
+  - sdkmanager "platform-tools" "platforms;android-28"  "build-tools;28.0.3"
   - sh ./Travis/install.sh
 
 script:
