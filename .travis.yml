@@ -58,7 +58,7 @@ before_script:
   - security set-key-partition-list -S "apple-tool:,apple:" -s -k travis ios-build.keychain
   # save profile
   - mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-  - uuid=`grep UUID -A1 -a adhoc.mobileprovision | grep -io "[-A-F0-9]\{36\}"`
+  - uuid=`grep UUID -A1 -a ./Travis/Secrets/travis.mobileprovision | grep -io "[-A-F0-9]\{36\}"`
   - cp ./Travis/Secrets/travis.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/$uuid.mobileprovision
 
 script:
