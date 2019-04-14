@@ -55,9 +55,11 @@ before_script:
   - security set-keychain-settings -t 3600 -l ~/Library/Keychains/ios-build.keychain
   # Add certs to keychain
   - security import ./Travis/Secrets/travis.p12 -k ~/Library/Keychains/ios-build.keychain -P ${KEY_PASSWORD} -T /usr/bin/codesign
+  - security set-key-partition-list -S apple-tool:,apple: -s -k travis ios-build.keychain
   # save profile
   - mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-  - cp "./Travis/Secrets/travis.mobileprovision" ~/Library/MobileDevice/Provisioning\ Profiles/
+  - cp ./Travis/Secrets/travis.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+  - cp ./Travis/Secrets/exportOptions.plist ./Build/ios/exportOptions.plist
 
 script:
   - sonar-scanner
@@ -66,8 +68,8 @@ script:
   - tree -L 3
   # iOS
   - cd ./Build/ios
-  - xcodebuild -project ${APP_NAME}.xcodeproj -scheme ${APP_NAME} -sdk iphoneos -configuration Release CODE_SIGN_IDENTITY="${DEVELOPER_NAME}" archive -archivePath ./build/${APP_NAME}.xcarchive | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
-  - xcodebuild -exportArchive -exportFormat IPA -archivePath ./build/${APP_NAME}.xcarchive -exportPath ./build.ipa -exportProvisioningProfile "${PROFILE_NAME}" | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
+  - xcodebuild -project ${APP_NAME}.xcodeproj -scheme ${APP_NAME} -sdk iphoneos -configuration Release archive -archivePath ./build/${APP_NAME}.xcarchive -exportOptionsPlist ./exportOptions.plist | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
+  - xcodebuild -exportArchive -archivePath ./build/${APP_NAME}.xcarchive -exportPath ./build.ipa -exportOptionsPlist ./exportOptions.plist | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
   - cd ../../
 
 after_success:
