@@ -66,7 +66,7 @@ script:
   - tree -L 3
   # iOS
   - cd ./Build/ios
-  - xcodebuild -project ${APP_NAME}.xcodeproj -target ${APP_NAME} -sdk iphoneos -configuration Release CODE_SIGN_IDENTITY="${DEVELOPER_NAME}" archive -archivePath ./build/${APP_NAME}.xcarchive | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
+  - xcodebuild -project ${APP_NAME}.xcodeproj -scheme ${APP_NAME} -sdk iphoneos -configuration Release CODE_SIGN_IDENTITY="${DEVELOPER_NAME}" archive -archivePath ./build/${APP_NAME}.xcarchive | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
   - xcodebuild -exportArchive -exportFormat IPA -archivePath ./build/${APP_NAME}.xcarchive -exportPath ./build.ipa -exportProvisioningProfile "${PROFILE_NAME}" | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
   - cd ../../
 
