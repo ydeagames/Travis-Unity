@@ -37,22 +37,19 @@ install:
   # Unity
   - sh ./Travis/install.sh
   # Android
-  - source ./Travis/install_android.sh
+  - sh ./Travis/install_android.sh
 
 script:
   - sonar-scanner
-  - tree
+  - tree -L 3
   - sh ./Travis/build.sh
-  - tree
+  - tree -L 3
 
 after_success:
   # Tag
   - sh ./Travis/tag.sh
   # DeployGate
-  - |-
-    if [ "${TRAVIS_BRANCH}" = "stable" -a "${TRAVIS_PULL_REQUEST}" = "false" ]; then
-      curl -F "file=@./Build/android.apk" -F "token=${DEPLOYGATE_API_TOKEN}" https://deploygate.com/api/users/name/apps
-    ;fi 
+  - sh ./Travis/deploygate.sh
 
 deploy:
   - provider: releases
