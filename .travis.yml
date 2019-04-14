@@ -58,7 +58,8 @@ before_script:
   - security set-key-partition-list -S "apple-tool:,apple:" -s -k travis ios-build.keychain
   # save profile
   - mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-  - cp ./Travis/Secrets/travis.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+  - uuid=`grep UUID -A1 -a adhoc.mobileprovision | grep -io "[-A-F0-9]\{36\}"`
+  - cp ./Travis/Secrets/travis.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/$uuid.mobileprovision
 
 script:
   - sonar-scanner
@@ -68,8 +69,10 @@ script:
   # iOS
   - cp ./Travis/Secrets/exportOptions.plist ./Build/ios/exportOptions.plist
   - cd ./Build/ios
-  - xcodebuild -project ${APP_NAME}.xcodeproj -configuration Release DEVELOPEMENT_TEAM="HL58UCA273" archive -sdk iphoneos -scheme ${APP_NAME} -archivePath ./build/${APP_NAME}.xcarchive -allowProvisioningUpdates | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
-  - xcodebuild -exportArchive -archivePath ./build/${APP_NAME}.xcarchive -exportPath ./build.ipa -exportOptionsPlist ./exportOptions.plist -allowProvisioningUpdates | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
+  #- xcodebuild -project ${APP_NAME}.xcodeproj -configuration Release DEVELOPEMENT_TEAM="HL58UCA273" archive -sdk iphoneos -scheme ${APP_NAME} -archivePath ./build/${APP_NAME}.xcarchive -allowProvisioningUpdates | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
+  #- xcodebuild -exportArchive -archivePath ./build/${APP_NAME}.xcarchive -exportPath ./build.ipa -exportOptionsPlist ./exportOptions.plist -allowProvisioningUpdates | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
+  - xcodebuild -project ${APP_NAME}.xcodeproj -scheme ${APP_NAME} -configuration Release clean archive -archivePath ./build/${APP_NAME}.xcarchive DEVELOPMENT_TEAM="HL58UCA273" -allowProvisioningUpdates | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
+  - xcodebuild -exportArchive -archivePath ./build/${APP_NAME}.xcarchive -exportOptionsPlist ./exportOptions.plist -exportPath ./build.ipa -allowProvisioningUpdates | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
   - cd ../../
 
 after_success:
