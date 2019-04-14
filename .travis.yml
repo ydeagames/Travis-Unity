@@ -59,7 +59,6 @@ before_script:
   # save profile
   - mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
   - cp ./Travis/Secrets/travis.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-  - cp ./Travis/Secrets/exportOptions.plist ./Build/ios/exportOptions.plist
 
 script:
   - sonar-scanner
@@ -67,6 +66,7 @@ script:
   - sh ./Travis/build.sh
   - tree -L 3
   # iOS
+  - cp ./Travis/Secrets/exportOptions.plist ./Build/ios/exportOptions.plist
   - cd ./Build/ios
   - xcodebuild -project ${APP_NAME}.xcodeproj -scheme ${APP_NAME} -sdk iphoneos -configuration Release archive -archivePath ./build/${APP_NAME}.xcarchive -exportOptionsPlist ./exportOptions.plist | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
   - xcodebuild -exportArchive -archivePath ./build/${APP_NAME}.xcarchive -exportPath ./build.ipa -exportOptionsPlist ./exportOptions.plist | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
