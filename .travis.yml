@@ -51,8 +51,8 @@ after_success:
   # DeployGate
   - |-
     if [ "${TRAVIS_BRANCH}" = "stable" -a "${TRAVIS_PULL_REQUEST}" = "false" ]; then
-	  curl -F "file=@./Build/android.apk" -F "token=${DEPLOYGATE_API_TOKEN}" https://deploygate.com/api/users/name/apps
-	;fi 
+      curl -F "file=@./Build/android.apk" -F "token=${DEPLOYGATE_API_TOKEN}" https://deploygate.com/api/users/name/apps
+    ;fi 
 
 deploy:
   - provider: releases
@@ -77,3 +77,8 @@ deploy:
 
 notifications:
   email: true
+
+after_success:
+  - sh ./Travis/send.sh success $WEBHOOK_URL
+after_failure:
+  - sh ./Travis/send.sh failure $WEBHOOK_URL
