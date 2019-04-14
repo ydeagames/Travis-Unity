@@ -42,6 +42,10 @@ public class BuildScript {
     }
 
     public static void Android () {
+        SetPrefsByEnv("AndroidSdkRoot", "ANDROID_SDK_ROOT");
+        SetPrefsByEnv("AndroidNdkRoot", "ANDROID_NDK_HOME");
+        SetPrefsByEnv("JdkPath", "JAVA_HOME");
+
         Build(BuildTargetGroup.Android, BuildTarget.Android, "Build/android.apk");
     }
 

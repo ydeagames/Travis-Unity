@@ -45,11 +45,17 @@ script:
   - sh ./Travis/build.sh
   - tree -L 3
 
+after_failure:
+  # Webhook
+  - sh ./Travis/send.sh failure $WEBHOOK_URL
+
 after_success:
   # Tag
   - sh ./Travis/tag.sh
   # DeployGate
   - sh ./Travis/deploygate.sh
+  # Webhook
+  - sh ./Travis/send.sh success $WEBHOOK_URL
 
 deploy:
   - provider: releases
@@ -73,9 +79,4 @@ deploy:
       branch: stable
 
 notifications:
-  email: true
-
-after_success:
-  - sh ./Travis/send.sh success $WEBHOOK_URL
-after_failure:
-  - sh ./Travis/send.sh failure $WEBHOOK_URL
+  email: false

@@ -67,6 +67,19 @@ WEBHOOK_DATA='{
         "name": "Branch",
         "value": "'"[\`$TRAVIS_BRANCH\`](https://github.com/$TRAVIS_REPO_SLUG/tree/$TRAVIS_BRANCH)"'",
         "inline": true
+      },
+      {
+        "name": "Release",
+        "value": "'"[\`$TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')\`](https://github.com/$TRAVIS_REPO_SLUG/releases/tag/v$(date +'%Y.%m.%d.%H%M')-$TRAVIS_BRANCH)"'",
+        "inline": true
+      },
+      {
+        "name": "WebGL",
+        "value": "'"[\`PCで今すぐプレイ\`](https://$(dirname $TRAVIS_REPO_SLUG).github.io/$(basename $TRAVIS_REPO_SLUG)/)"'",
+      },
+      {
+        "name": "Android",
+        "value": "'"[\`Androidで今すぐプレイ\`](https://github.com/$TRAVIS_REPO_SLUG/releases/download/v$(date +'%Y.%m.%d.%H%M')-$TRAVIS_BRANCH/android.apk)"'",
       }
     ],
     "timestamp": "'"$TIMESTAMP"'"
