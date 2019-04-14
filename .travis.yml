@@ -68,7 +68,7 @@ script:
   # iOS
   - cp ./Travis/Secrets/exportOptions.plist ./Build/ios/exportOptions.plist
   - cd ./Build/ios
-  - xcodebuild -project ${APP_NAME}.xcodeproj -scheme ${APP_NAME} -sdk iphoneos -configuration Release archive -archivePath ./build/${APP_NAME}.xcarchive -exportOptionsPlist ./exportOptions.plist | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
+  - xcodebuild -project ${APP_NAME}.xcodeproj -scheme ${APP_NAME} -sdk iphoneos -configuration Release archive -archivePath ./build/${APP_NAME}.xcarchive | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
   - xcodebuild -exportArchive -archivePath ./build/${APP_NAME}.xcarchive -exportPath ./build.ipa -exportOptionsPlist ./exportOptions.plist | xcpretty -f `xcpretty-travis-formatter` && exit ${PIPESTATUS[0]}
   - cd ../../
 
