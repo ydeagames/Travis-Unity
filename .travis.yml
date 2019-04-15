@@ -6,7 +6,7 @@ branches:
     - master
     - develop
 
-os: osx
+dist: trusty
 
 rvm:
   - 2.2
