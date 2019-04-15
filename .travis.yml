@@ -24,7 +24,7 @@ env:
 
 cache:
   - directories:
-    # Homebrew    
+    # Homebrew
     - $HOME/Library/Caches/Homebrew
     # Unity
     - ./Unity
@@ -49,7 +49,7 @@ script:
 
 after_failure:
   # Notification
-  - sh ./Travis/send.sh failure $WEBHOOK_URL
+  - bash ./Travis/send.sh failure $WEBHOOK_URL
 
 after_success:
   # Tag
@@ -57,7 +57,7 @@ after_success:
   # DeployGate
   - sh ./Travis/deploygate.sh
   # Notification
-  - sh ./Travis/send.sh success $WEBHOOK_URL
+  - bash ./Travis/send.sh success $WEBHOOK_URL
 
 deploy:
   # GitHub
