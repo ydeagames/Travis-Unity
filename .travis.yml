@@ -43,9 +43,6 @@ jobs:
         - sh ./Travis/install_android.sh
         # Unity
         - sh ./Travis/install.sh
-    # Analytics
-    - stage: analytics
-      name: Analytics
       script: sonar-scanner
     # Build Unity Projects
     - stage: build
@@ -71,7 +68,7 @@ jobs:
         # Notification
         - bash ./Travis/send.sh success $WEBHOOK_URL
     - stage: deploy
-      name: deploy
+      name: Deploy
       script:
         # Tag
         - sh ./Travis/tag.sh
