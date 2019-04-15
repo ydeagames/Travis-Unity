@@ -8,14 +8,6 @@ branches:
 
 os: osx
 
-rvm:
-  - 2.2
-
-addons:
-  # Analytics
-  sonarcloud:
-    organization: "$SONAR_OWNER"
-
 env:
   global:
     # Android
@@ -43,7 +35,7 @@ jobs:
         - sh ./Travis/install_android.sh
         # Unity
         - sh ./Travis/install.sh
-      script: sonar-scanner
+      script: true
     # Build Unity Projects
     - stage: build
       name: Build Windows
