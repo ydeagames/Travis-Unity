@@ -37,10 +37,10 @@ cache:
 install:
   # Debug
   - brew install tree
-  # Unity
-  - sh ./Travis/install.sh
   # Android
   - source ./Travis/install_android.sh
+  # Unity
+  - sh ./Travis/install.sh
 
 script:
   # Analytics
