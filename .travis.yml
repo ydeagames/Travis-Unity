@@ -1,4 +1,4 @@
-language: generic
+language: objective-c
 
 branches:
   only:
@@ -6,7 +6,7 @@ branches:
     - master
     - develop
 
-dist: trusty
+os: osx
 
 rvm:
   - 2.2
