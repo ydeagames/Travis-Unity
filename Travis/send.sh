@@ -30,6 +30,10 @@ AUTHOR_NAME="$(git log -1 "$TRAVIS_COMMIT" --pretty="%aN")"
 COMMITTER_NAME="$(git log -1 "$TRAVIS_COMMIT" --pretty="%cN")"
 COMMIT_SUBJECT="$(git log -1 "$TRAVIS_COMMIT" --pretty="%s")"
 COMMIT_MESSAGE="$(git log -1 "$TRAVIS_COMMIT" --pretty="%b")"
+COMMIT_RELEASE=$TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
+COMMIT_TAG=v$(date +'%Y.%m.%d.%H%M')-$TRAVIS_BRANCH
+COMMIT_REPO_OWNER=$(dirname $TRAVIS_REPO_SLUG)
+COMMIT_REPO_NAME=$(basename $TRAVIS_REPO_SLUG)
 
 if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
   CREDITS="$AUTHOR_NAME authored & committed"
@@ -70,16 +74,16 @@ WEBHOOK_DATA='{
       },
       {
         "name": "Release",
-        "value": "'"[\`$TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')\`](https://github.com/$TRAVIS_REPO_SLUG/releases/tag/v$(date +'%Y.%m.%d.%H%M')-$TRAVIS_BRANCH)"'",
+        "value": "'"[\`$COMMIT_RELEASE\`](https://github.com/$TRAVIS_REPO_SLUG/releases/tag/$COMMIT_TAG"'",
         "inline": true
       },
       {
         "name": "WebGL",
-        "value": "'"[\`PCで今すぐプレイ\`](https://$(dirname $TRAVIS_REPO_SLUG).github.io/$(basename $TRAVIS_REPO_SLUG)/)"'",
+        "value": "'"[\`PCで今すぐプレイ\`](https://$COMMIT_REPO_OWNER.github.io/$COMMIT_REPO_NAME/)"'",
       },
       {
         "name": "Android",
-        "value": "'"[\`Androidで今すぐプレイ\`](https://github.com/$TRAVIS_REPO_SLUG/releases/download/v$(date +'%Y.%m.%d.%H%M')-$TRAVIS_BRANCH/android.apk)"'",
+        "value": "'"[\`Androidで今すぐプレイ\`](https://github.com/$TRAVIS_REPO_SLUG/releases/download/$COMMIT_TAG/android.apk)"'",
       }
     ],
     "timestamp": "'"$TIMESTAMP"'"
