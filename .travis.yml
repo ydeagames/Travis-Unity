@@ -6,77 +6,74 @@ branches:
     - beta
     - stable
 
-addons:
-  sonarcloud:
-    organization: "ydeagames-github"
-
 os: osx
 
 rvm:
   - 2.2
 
-jdk: 
-  - oraclejdk8
+addons:
+  # Analytics
+  sonarcloud:
+    organization: "ydeagames-github"
+
+env:
+  global:
+    # Android
+    - ANDROID_SDK_ROOT=/usr/local/share/android-sdk
+    - ANDROID_NDK_HOME=/usr/local/share/android-ndk
 
 cache:
-  directories:
-    # Homebrew
+  - directories:
+    # Homebrew    
     - $HOME/Library/Caches/Homebrew
     # Unity
     - ./Unity
     - $HOME/Library/Caches/com.unity3d.UnityEditor/GiCache
-
-env: 
-  global: 
-    - ANDROID_SDK_ROOT=/usr/local/share/android-sdk 
-    - ANDROID_NDK_HOME=/usr/local/share/android-ndk
+  - timeout: 1000
 
 install:
-  - echo "Attempting to Install Android SDK and NDK"
-  - echo "Current Directory is $(pwd)"
-  - brew doctor
-  - brew tap homebrew/cask
-  - brew cask uninstall java # uninstall java9 
-  - brew tap homebrew/cask-versions 
-  - brew cask install java8 # install java8 
+  # Debug
   - brew install tree
-  - echo "Current Directory is $(pwd)"
-  - mkdir -p ~/.android/ 
-  - touch ~/.android/repositories.cfg # without this file, error will occur on next step 
-  - echo "Current Directory is $(pwd)"
-  - brew cask install android-sdk 
-  - brew cask install android-ndk
-  - echo "Current Directory is $(pwd)"
-  - yes | sdkmanager --licenses > /dev/null
-  - echo "Current Directory is $(pwd)"
-  - sdkmanager "platform-tools" "platforms;android-28" "build-tools;28.0.3" > /dev/null
-  - echo "Current Directory is $(pwd)"
+  # Android
+  - source ./Travis/install_android.sh
+  # Unity
   - sh ./Travis/install.sh
-  - echo "Current Directory is $(pwd)"
-  - tree
 
 script:
+  # Analytics
   - sonar-scanner
-  - echo "Current Directory is $(pwd)"
-  - tree
+  # Unity
   - sh ./Travis/build.sh
-  - echo "Current Directory is $(pwd)"
-  - tree
+  # Debug
+  - tree -L 3
+
+after_failure:
+  # Notification
+  - sh ./Travis/send.sh failure $WEBHOOK_URL
 
 after_success:
+  # Tag
   - sh ./Travis/tag.sh
+  # DeployGate
+  - sh ./Travis/deploygate.sh
+  # Notification
+  - sh ./Travis/send.sh success $WEBHOOK_URL
 
 deploy:
+  # GitHub
   - provider: releases
     api_key: $GIT_TOKEN
     file: 
       - ./Build/windows.zip
+      #- ./Build/linux.tar.gz
       - ./Build/android.apk
+      #- ./Build/osx.dmg
+      #- ./Build/ios.zip
     name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
     skip_cleanup: true
     on:
       all_branches: true
-
+  # Pages
   - provider: pages
     skip-cleanup: true
     github-token: $GIT_TOKEN
@@ -85,5 +82,6 @@ deploy:
     on:
       branch: stable
 
+# Notification
 notifications:
   email: false
