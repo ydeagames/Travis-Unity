@@ -12,11 +12,13 @@ rvm:
   - 2.2
 
 addons:
+  # Analytics
   sonarcloud:
     organization: "ydeagames-github"
 
 env:
   global:
+    # Android
     - ANDROID_SDK_ROOT=/usr/local/share/android-sdk
     - ANDROID_NDK_HOME=/usr/local/share/android-ndk
 
@@ -33,6 +35,7 @@ cache:
   - timeout: 1000
 
 install:
+  # Debug
   - brew install tree
   # Unity
   - sh ./Travis/install.sh
@@ -40,13 +43,15 @@ install:
   - sh ./Travis/install_android.sh
 
 script:
+  # Analytics
   - sonar-scanner
-  - tree -L 3
+  # Unity
   - sh ./Travis/build.sh
+  # Debug
   - tree -L 3
 
 after_failure:
-  # Webhook
+  # Notification
   - sh ./Travis/send.sh failure $WEBHOOK_URL
 
 after_success:
@@ -54,22 +59,24 @@ after_success:
   - sh ./Travis/tag.sh
   # DeployGate
   - sh ./Travis/deploygate.sh
-  # Webhook
+  # Notification
   - sh ./Travis/send.sh success $WEBHOOK_URL
 
 deploy:
+  # GitHub
   - provider: releases
     api_key: $GIT_TOKEN
     file: 
       - ./Build/windows.zip
-      - ./Build/linux.tar.gz
+      #- ./Build/linux.tar.gz
       - ./Build/android.apk
-      - ./Build/osx.dmg
+      #- ./Build/osx.dmg
+      #- ./Build/ios.zip
     name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
     skip_cleanup: true
     on:
       all_branches: true
-
+  # Pages
   - provider: pages
     skip-cleanup: true
     github-token: $GIT_TOKEN
@@ -78,5 +85,6 @@ deploy:
     on:
       branch: stable
 
+# Notification
 notifications:
   email: false
