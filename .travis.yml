@@ -26,19 +26,16 @@ cache:
     - $HOME/Library/Caches/com.unity3d.UnityEditor/GiCache
   - timeout: 1000
 
-# Install
-install:
-  # Android
-  - bash ./Travis/install_android.sh
-  # Unity
-  - bash ./Travis/install.sh
-
 jobs:
   include:
     # Build Unity Projects
     - stage: build
       name: Build Windows
-      script: bash ./Travis/build.sh windows
+      install:
+        # Unity
+        - bash ./Travis/install.sh windows
+      script:
+        - travis_wait 30 bash ./Travis/build.sh windows
       deploy:
         # GitHub
         - provider: releases
@@ -57,7 +54,11 @@ jobs:
     #  script: bash ./Travis/build.sh linux
 
     - name: Build WebGL
-      script: bash ./Travis/build.sh webgl
+      install:
+        # Unity
+        - bash ./Travis/install.sh webgl
+      script:
+        - travis_wait 30 bash ./Travis/build.sh webgl
       before_deploy: skip
       deploy:
         # Pages
@@ -70,7 +71,13 @@ jobs:
             branch: develop
 
     - name: Build Android
-      script: bash ./Travis/build.sh android
+      install:
+        # Android
+        - bash ./Travis/install_android.sh
+        # Unity
+        - bash ./Travis/install.sh android
+      script:
+        - travis_wait 30 bash ./Travis/build.sh android
       after_success:
         # DeployGate
         - bash ./Travis/deploygate.sh $DEPLOYGATE_USER $DEPLOYGATE_API_TOKEN
