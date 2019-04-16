@@ -46,6 +46,7 @@ jobs:
     #  script: sh ./Travis/build.sh linux
     - name: Build WebGL
       script: sh ./Travis/build.sh webgl
+      before_deploy: skip
       deploy:
         # Pages
         - provider: pages
