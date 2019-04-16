@@ -23,19 +23,17 @@ cache:
     - $HOME/Library/Caches/com.unity3d.UnityEditor/GiCache
   - timeout: 1000
 
+# Install
+install:
+  # Debug
+  - brew install tree
+  # Android
+  - sh ./Travis/install_android.sh
+  # Unity
+  - sh ./Travis/install.sh
+
 jobs:
   include:
-    # Install
-    - stage: install
-      name: Install
-      install:
-        # Debug
-        - brew install tree
-        # Android
-        - sh ./Travis/install_android.sh
-        # Unity
-        - sh ./Travis/install.sh
-      script: true
     # Build Unity Projects
     - stage: build
       name: Build Windows
@@ -46,8 +44,20 @@ jobs:
     #  script: sh ./Travis/build.sh linux
     - name: Build WebGL
       script: sh ./Travis/build.sh webgl
+      deploy:
+        # Pages
+        - provider: pages
+            skip-cleanup: true
+            github-token: $GITHUB_TOKEN
+            local-dir: ./Build/webgl/
+            keep-history: true
+            on:
+            branch: develop
     - name: Build Android
       script: sh ./Travis/build.sh android
+      # DeployGate
+      after_success:
+        - sh ./Travis/deploygate.sh $DEPLOYGATE_USER $DEPLOYGATE_API_TOKEN
     #- name: Build iOS
     #  script: sh ./Travis/build.sh ios
     # Check
@@ -59,35 +69,26 @@ jobs:
       after_success:
         # Notification
         - bash ./Travis/send.sh success $WEBHOOK_URL
-    - stage: deploy
-      name: Deploy
-      script:
-        # Tag
-        - sh ./Travis/tag.sh
-        # DeployGate
-        - sh ./Travis/deploygate.sh $DEPLOYGATE_USER $DEPLOYGATE_API_TOKEN
-      deploy:
-        # GitHub
-        - provider: releases
-          api_key: $GITHUB_TOKEN
-          file: 
-            - ./Build/windows.zip
-            - ./Build/linux.tar.gz
-            - ./Build/android.apk
-            - ./Build/osx.dmg
-            - ./Build/ios.zip
-          name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
-          skip_cleanup: true
-          on:
-            all_branches: true
-        # Pages
-        - provider: pages
-          skip-cleanup: true
-          github-token: $GITHUB_TOKEN
-          local-dir: ./Build/webgl/
-          keep-history: true
-          on:
-            branch: develop
+
+# Deploy
+before_deploy:
+  # Tag
+  - sh ./Travis/tag.sh
+
+deploy:
+  # GitHub
+  - provider: releases
+      api_key: $GITHUB_TOKEN
+      file: 
+      - ./Build/windows.zip
+      - ./Build/linux.tar.gz
+      - ./Build/android.apk
+      - ./Build/osx.dmg
+      - ./Build/ios.zip
+      name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
+      skip_cleanup: true
+      on:
+      all_branches: true
 
 # Notification
 notifications:
