@@ -14,8 +14,8 @@ env:
     - ANDROID_SDK_ROOT=/usr/local/share/android-sdk
     - ANDROID_NDK_HOME=/usr/local/share/android-ndk
     # Release
-    - RELEASE_NAME=$TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
-    - RELEASE_GIT_TAG=build/b${TRAVIS_BUILD_NUMBER}-${TRAVIS_BRANCH}
+    - RELEASE_NAME="$TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')"
+    - RELEASE_GIT_TAG="build/b${TRAVIS_BUILD_NUMBER}-${TRAVIS_BRANCH}"
 
 cache:
   - directories:
