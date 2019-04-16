@@ -28,8 +28,6 @@ cache:
 
 # Install
 install:
-  # Debug
-  - brew install tree
   # Android
   - sh ./Travis/install_android.sh
   # Unity
@@ -93,7 +91,9 @@ jobs:
     # Check
     - stage: check
       name: Check
-      install: skip
+      install:
+        # Debug
+        - brew install tree
       script:
         # Debug
         - tree -L 3
