@@ -13,6 +13,8 @@ env:
     # Android
     - ANDROID_SDK_ROOT=/usr/local/share/android-sdk
     - ANDROID_NDK_HOME=/usr/local/share/android-ndk
+	# Tag
+	- RELEASE_GIT_TAG=build/b${TRAVIS_BUILD_NUMBER}-${TRAVIS_BRANCH}
 
 cache:
   - directories:
@@ -63,12 +65,15 @@ jobs:
     # Check
     - stage: check
       name: Check
+      install: skip
       script:
         # Debug
         - tree -L 3
       after_success:
         # Notification
         - bash ./Travis/send.sh success $WEBHOOK_URL
+      before_deploy: skip
+      deploy: skip
 
 # Deploy
 before_deploy:
