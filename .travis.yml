@@ -47,12 +47,12 @@ jobs:
       deploy:
         # Pages
         - provider: pages
-            skip-cleanup: true
-            github-token: $GITHUB_TOKEN
-            local-dir: ./Build/webgl/
-            keep-history: true
-            on:
-            branch: develop
+          skip-cleanup: true
+          github-token: $GITHUB_TOKEN
+          local-dir: ./Build/webgl/
+          keep-history: true
+          on:
+          branch: develop
     - name: Build Android
       script: sh ./Travis/build.sh android
       # DeployGate
@@ -78,17 +78,17 @@ before_deploy:
 deploy:
   # GitHub
   - provider: releases
-      api_key: $GITHUB_TOKEN
-      file: 
-      - ./Build/windows.zip
-      - ./Build/linux.tar.gz
-      - ./Build/android.apk
-      - ./Build/osx.dmg
-      - ./Build/ios.zip
-      name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
-      skip_cleanup: true
-      on:
-      all_branches: true
+    api_key: $GITHUB_TOKEN
+    file: 
+    - ./Build/windows.zip
+    - ./Build/linux.tar.gz
+    - ./Build/android.apk
+    - ./Build/osx.dmg
+    - ./Build/ios.zip
+    name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
+    skip_cleanup: true
+    on:
+    all_branches: true
 
 # Notification
 notifications:
