@@ -29,16 +29,16 @@ cache:
 # Install
 install:
   # Android
-  - sh ./Travis/install_android.sh
+  - bash ./Travis/install_android.sh
   # Unity
-  - sh ./Travis/install.sh
+  - bash ./Travis/install.sh
 
 jobs:
   include:
     # Build Unity Projects
     - stage: build
       name: Build Windows
-      script: sh ./Travis/build.sh windows
+      script: bash ./Travis/build.sh windows
       deploy:
         # GitHub
         - provider: releases
@@ -51,13 +51,13 @@ jobs:
             all_branches: true
 
     #- name: Build OSX
-    #  script: sh ./Travis/build.sh osx
+    #  script: bash ./Travis/build.sh osx
 
     #- name: Build Linux
-    #  script: sh ./Travis/build.sh linux
+    #  script: bash ./Travis/build.sh linux
 
     - name: Build WebGL
-      script: sh ./Travis/build.sh webgl
+      script: bash ./Travis/build.sh webgl
       before_deploy: skip
       deploy:
         # Pages
@@ -70,10 +70,10 @@ jobs:
             branch: develop
 
     - name: Build Android
-      script: sh ./Travis/build.sh android
+      script: bash ./Travis/build.sh android
       after_success:
         # DeployGate
-        - sh ./Travis/deploygate.sh $DEPLOYGATE_USER $DEPLOYGATE_API_TOKEN
+        - bash ./Travis/deploygate.sh $DEPLOYGATE_USER $DEPLOYGATE_API_TOKEN
       deploy:
         # GitHub
         - provider: releases
@@ -86,7 +86,7 @@ jobs:
             all_branches: true
 
     #- name: Build iOS
-    #  script: sh ./Travis/build.sh ios
+    #  script: bash ./Travis/build.sh ios
 
     # Check
     - stage: check
@@ -104,7 +104,7 @@ jobs:
 # Deploy
 before_deploy:
   # Tag
-  - sh ./Travis/tag.sh
+  - bash ./Travis/tag.sh
 
 # Notification
 notifications:
