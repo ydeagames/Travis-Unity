@@ -13,8 +13,8 @@ env:
     # Android
     - ANDROID_SDK_ROOT=/usr/local/share/android-sdk
     - ANDROID_NDK_HOME=/usr/local/share/android-ndk
-	# Tag
-	- RELEASE_GIT_TAG=build/b${TRAVIS_BUILD_NUMBER}-${TRAVIS_BRANCH}
+    # Tag
+    - RELEASE_GIT_TAG=build/b${TRAVIS_BUILD_NUMBER}-${TRAVIS_BRANCH}
 
 cache:
   - directories:
