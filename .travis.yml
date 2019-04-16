@@ -52,7 +52,7 @@ jobs:
           local-dir: ./Build/webgl/
           keep-history: true
           on:
-          branch: develop
+            branch: develop
     - name: Build Android
       script: sh ./Travis/build.sh android
       # DeployGate
@@ -80,15 +80,15 @@ deploy:
   - provider: releases
     api_key: $GITHUB_TOKEN
     file: 
-    - ./Build/windows.zip
-    - ./Build/linux.tar.gz
-    - ./Build/android.apk
-    - ./Build/osx.dmg
-    - ./Build/ios.zip
+      - ./Build/windows.zip
+      - ./Build/linux.tar.gz
+      - ./Build/android.apk
+      - ./Build/osx.dmg
+      - ./Build/ios.zip
     name: $TRAVIS_BRANCH $(date +'%Y.%m.%d %H:%M')
     skip_cleanup: true
     on:
-    all_branches: true
+      all_branches: true
 
 # Notification
 notifications:
